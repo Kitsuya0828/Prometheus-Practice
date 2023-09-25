@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "node_exporter"
+    gce_sd_configs:
+      - project: "prometheus-400101"
+        zone: "us-central1-a"
+    relabel_configs:
+      - source_labels:
+        - __meta_gce_public_ip
+        regex: (.*)
+        replacement: $1:9100
+        target_label: __address__
