@@ -1,0 +1,3 @@
+[submodule "chap04/mysql/mysqld_exporter"]
+	path = chap04/mysql/mysqld_exporter
+	url = https://github.com/prometheus/mysqld_exporter.git
