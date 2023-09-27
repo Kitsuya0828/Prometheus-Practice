@@ -1,10 +1,10 @@
 groups:
   - name: target_status
     rules:
-      - alert: scrape_failed
+      - alert: Target Down
         expr : up == 0
         for: 10s
         labels:
-          severity: error
+          severity: critical
         annotations:
-          summary: monitoring target failed.
+          summary: Prometheus Target Down
