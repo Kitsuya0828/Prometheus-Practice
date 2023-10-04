@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  prom-src: # 送信元（スクレイプも行う）
+    container_name: prometheus-src
+    image: prom/prometheus
+    ports:
+      - '9091:9090'
+    volumes:
+      - './prometheus-src.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --config.file=/etc/prometheus/prometheus.yml
+  prom-dst: # 送信先
+    container_name: prometheus-dst
+    image: prom/prometheus
+    ports:
+      - '9092:9090'
+    volumes:
+      - './prometheus-dst.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-remote-write-receiver
+      --config.file=/etc/prometheus/prometheus.yml
+  node-exporter:  # ノード監視
+    container_name: node-exporter
+    image: prom/node-exporter
+    ports:
+      - '9100:9100'
